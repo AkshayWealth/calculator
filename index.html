@@ -150,7 +150,26 @@
             border: 1px dashed #bbf7d0;
             margin-top: 15px;
         }
-        /* Catchy Green CTA Button */
+        .benefits-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 25px;
+        }
+        .benefits-box h4 {
+            margin: 0 0 12px 0;
+            color: var(--primary-color);
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .benefits-list {
+            margin: 0;
+            padding-left: 20px;
+            font-size: 14px;
+            color: #334155;
+            line-height: 1.6;
+        }
         .btn-whatsapp {
             display: flex;
             align-items: center;
@@ -236,7 +255,6 @@
         <button type="submit" class="btn-calc">Calculate Premium</button>
     </form>
 
-    <!-- રિપોર્ટ ડિસ્પ્લે સેક્શન -->
     <div id="resultBox" class="result-box">
         <div class="report-header">
             <span class="report-badge">Live Report</span>
@@ -252,7 +270,11 @@
                 <div id="fundDisplay" class="fund-display"></div>
             </div>
 
-            <!-- "Capture_4.PNG" ને હટાવીને જૂન મહિના વાળી સ્પેશિયલ અર્જન્સી નોટ સેટ કરી -->
+            <div class="benefits-box">
+                <h4><i class="fa-solid fa-star" style="color: #ffc107;"></i> પ્લાનના મુખ્ય ફાયદાઓ (Basic Benefits):</h4>
+                <ul id="benefitsList" class="benefits-list"></ul>
+            </div>
+
             <div style="background: #fff5f5; border: 1px solid #feb2b2; border-radius: 12px; padding: 18px; margin-bottom: 25px;">
                 <h4 style="margin: 0 0 8px 0; color: #c53030; font-size: 15px; font-weight: 700;">
                     <i class="fa-solid fa-triangle-exclamation"></i> મહત્વની સૂચના: જૂન મહિનાથી પ્રીમિયમ દરમાં ફેરફાર
@@ -265,9 +287,8 @@
                 </p>
             </div>
 
-            <!-- ડાયરેક્ટ વોટ્સએપ CTA બટન -->
             <a id="finalBtn" href="#" target="_blank" class="btn-whatsapp">
-                <i class="fa-brands fa-whatsapp" style="font-size: 24px;"></i> આ પ્રીમિયમ સાથે પોલિસી લેવા અક્ષયભાઈનો સંપર્ક કરો
+                <i class="fa-brands fa-whatsapp" style="font-size: 24px;"></i> આ પ્રીમિયમ અને બેનિફિટ્સ સાથે પોલિસી લેવા અક્ષયભાઈનો સંપર્ક કરો
             </a>
             
             <div style="font-size: 12px; color: #94a3b8; text-align: center; margin-top: 15px;">
@@ -324,31 +345,52 @@
 
         document.getElementById('premiumDisplay').innerHTML = premiumText;
         document.getElementById('fundDisplay').innerHTML = fundText;
-        document.getElementById('resultBox').style.display = 'block';
 
-        // ગુગલ શીટમાં ઓટોમેટીક ડેટા સેવિંગ ફ્લો
-        const webAppUrl = "YOUR_GOOGLE_SCRIPT_URL_HERE"; 
-        if(webAppUrl !== "YOUR_GOOGLE_SCRIPT_URL_HERE") {
-            fetch(webAppUrl, {
-                method: "POST",
-                body: JSON.stringify({
-                    name: name,
-                    mobile: mobile,
-                    age: age,
-                    education: education,
-                    tobacco: tobacco,
-                    income: income,
-                    plan: document.getElementById('plan').options[document.getElementById('plan').selectedIndex].text,
-                    premium: premiumText
-                })
-            }).catch(err => console.log("Saved."));
+        const benefitsList = document.getElementById('benefitsList');
+        benefitsList.innerHTML = "";
+        
+        let ben1, ben2, ben3;
+        if(planKey.includes('pure')) {
+            ben1 = "🛡️ *મોટું લાઈફ કવરેજ:* પરિવાર માટે નક્કી કરેલ રકમનું શુદ્ધ આર્થિક સુરક્ષા કવચ (85 વર્ષ સુધી).";
+            ben2 = "🤝 *ગેરંટીડ આર્થિક મદદ:* મુશ્કેલ સમયમાં પરિવારને ક્લેમ સેટલમેન્ટ દ્વારા પૂરો સપોર્ટ.";
+            ben3 = "📉 *ટેક્સ બેનિફિટ:* આવકવેરાની કલમ 80C હેઠળ વાર્ષિક પ્રીમિયમ પર ટેક્સમાં મોટી બચત.";
+        } else {
+            ben1 = "💎 *ડબલ પ્રોટેક્શન:* એક જ પ્લાનમાં મોટું લાઈફ કવર (વીમો) + શેરબજાર આધારિત ફંડ ગ્રોથ.";
+            ben2 = "💰 *ટેક્સ ફ્રી મેચ્યોરિટી:* કલમ 10(10D) હેઠળ પાકતી મુદતે મળતું ભંડોળ એકદમ ટેક્સ-ફ્રી.";
+            ben3 = "📈 *લોન્ગ ટર્મ વેલ્થ:* માર્કેટ લિંક્ડ રોકાણ હોવાથી લાંબા ગાળે મોટું ફંડ ભેગું કરવાની શ્રેષ્ઠ તક.";
         }
 
-        // બધી જ બેઝિક વિગતો અને પ્રીમિયમ સાથેનો ફાઇનલ વોટ્સએપ મેસેજ
-        let planLabel = document.getElementById('plan').options[document.getElementById('plan').selectedIndex].text;
+        benefitsList.innerHTML += "<li>" + ben1.replace(/\*/g, '') + "</li>";
+        benefitsList.innerHTML += "<li>" + ben2.replace(/\*/g, '') + "</li>";
+        benefitsList.innerHTML += "<li>" + ben3.replace(/\*/g, '') + "</li>";
+
+        document.getElementById('resultBox').style.display = 'block';
+
+        // ગિટહબમાંથી ગુગલ શીટમાં કનેક્ટ કરવાનો રસ્તો
+        var googleScriptUrl = "YOUR_GOOGLE_WEB_APP_URL_HERE"; 
         
+        var leadData = {
+            name: name, mobile: mobile, age: age, education: education,
+            tobacco: tobacco, income: income,
+            plan: document.getElementById('plan').options[document.getElementById('plan').selectedIndex].text,
+            premium: premiumText
+        };
+
+        fetch(googleScriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            cache: 'no-cache',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(leadData)
+        }).then(function() {
+            console.log("Success! Data sent to Google Sheet via GitHub.");
+        }).catch(function(err) {
+            console.error("Error sending data:", err);
+        });
+
+        let planLabel = document.getElementById('plan').options[document.getElementById('plan').selectedIndex].text;
         let messageText = "નમસ્કાર અક્ષયભાઈ (A-KSHAY WEALTH),\n\n" +
-                          "હું આ પ્લાન ખરીદવામાં રસ ધરાવું છું. મારી વિગતો નીચે મુજબ છે:\n\n" +
+                          "હું આ પ્લાન અને તેના ફાયદાઓ જોઈને રસ ધરાવું છું. મારી વિગતો નીચે મુજબ છે:\n\n" +
                           "👤 *નામ:* " + name + "\n" +
                           "📞 *મોબાઈલ:* " + mobile + "\n" +
                           "🎂 *ઉંમર:* " + age + " વર્ષ\n" +
@@ -357,6 +399,7 @@
                           "💰 *વાર્ષિક આવક:* " + income + "\n\n" +
                           "📋 *પસંદ કરેલ પ્લાન:* " + planLabel + "\n" +
                           "💵 *ગણેલું પ્રીમિયમ:* " + premiumText + "\n\n" +
+                          "✨ *મુખ્ય પ્લાન બેનિફિટ્સ:*\n" + ben1 + "\n" + ben2 + "\n" + ben3 + "\n\n" +
                           "જૂન મહિનામાં કિંમતો વધે તે પહેલાં મારો પ્લાન લોક કરવા આગળની પ્રોસેસ સમજાવો.";
         
         document.getElementById('finalBtn').href = "https://wa.me/917383666008?text=" + encodeURIComponent(messageText);
