@@ -3,408 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-KSHAY WEALTH - Premium Calculator & Planner</title>
+    <title>A-KSHAY WEALTH - Premium Calculator</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #0d6efd;
-            --secondary-color: #198754;
-            --dark-color: #1e293b;
-            --bg-light: #f1f5f9;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-light);
-            color: #334155;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 750px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-        }
-        .header {
-            text-align: center;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 20px;
-            margin-bottom: 30px;
-        }
-        .header h1 {
-            color: var(--primary-color);
-            margin: 0;
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-        }
-        .header p {
-            color: #64748b;
-            margin: 5px 0 0 0;
-            font-size: 16px;
-            font-weight: 500;
-        }
-        .badge-advisor {
-            background: #fef3c7;
-            color: #92400e;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 13px;
-            display: inline-block;
-            margin-top: 12px;
-            font-weight: 600;
-            border: 1px solid #fde68a;
-        }
-        .form-group {
-            margin-bottom: 22px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #475569;
-            font-size: 15px;
-        }
-        input, select {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 16px;
-            color: #1e293b;
-            transition: all 0.3s;
-        }
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
-        }
-        .btn-calc {
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
-        }
-        .btn-calc:hover {
-            background-color: #0b5ed7;
-        }
-        .result-box {
-            display: none;
-            margin-top: 35px;
-            background: #ffffff;
-            border: 2px solid var(--dark-color);
-            border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        .report-header {
-            background: var(--dark-color);
-            color: #ffffff;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
-        .report-badge {
-            position: absolute;
-            left: 15px;
-            top: 18px;
-            font-size: 11px;
-            background: #e2e8f0;
-            color: #0f172a;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-        .premium-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 22px;
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .premium-display {
-            font-size: 38px;
-            font-weight: 800;
-            color: #16a34a;
-            margin: 5px 0;
-        }
-        .fund-display {
-            font-size: 16px;
-            color: #475569;
-            font-weight: 600;
-            background: #f0fdf4;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px dashed #bbf7d0;
-            margin-top: 15px;
-        }
-        .benefits-box {
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 25px;
-        }
-        .benefits-box h4 {
-            margin: 0 0 12px 0;
-            color: var(--primary-color);
-            font-size: 16px;
-            font-weight: 700;
-        }
-        .benefits-list {
-            margin: 0;
-            padding-left: 20px;
-            font-size: 14px;
-            color: #334155;
-            line-height: 1.6;
-        }
-        .btn-whatsapp {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            background-color: var(--secondary-color);
-            color: white;
-            padding: 18px;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            box-sizing: border-box;
-            transition: all 0.3s;
-            box-shadow: 0 4px 12px rgba(25, 135, 84, 0.2);
-            text-align: center;
-        }
-        .btn-whatsapp:hover {
-            background-color: #146c43;
-            transform: translateY(-2px);
-        }
+        body { font-family: sans-serif; background: #f1f5f9; padding: 20px; }
+        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #0d6efd; }
+        .form-group { margin-bottom: 15px; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        button { width: 100%; background: #0d6efd; color: white; padding: 15px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        #resultBox { display: none; margin-top: 20px; padding: 20px; background: #f8fafc; border: 1px solid #ddd; border-radius: 10px; }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <div class="header">
-        <h1>A-KSHAY WEALTH</h1>
-        <p>Premium Calculator & Financial Planner</p>
-        <span class="badge-advisor"><i class="fa-solid fa-user-shield"></i> SEBI Registered Mutual Fund Distributor | 10+ Years Exp.</span>
-    </div>
-
+    <h1>A-KSHAY WEALTH</h1>
     <form id="termForm" onsubmit="calculatePremium(event)">
-        <div class="form-group">
-            <label><i class="fa-solid fa-user"></i> પૂરું નામ (Full Name)</label>
-            <input type="text" id="name" required placeholder="દા.ત. ઉમેશભાઈ શાહ">
-        </div>
-        <div class="form-group">
-            <label><i class="fa-solid fa-phone"></i> મોબાઈલ નંબર (Mobile Number)</label>
-            <input type="tel" id="mobile" pattern="[0-9]{10}" required placeholder="10 આંકડાનો નંબર">
-        </div>
-        <div class="form-group">
-            <label><i class="fa-solid fa-cake-candles"></i> ઉંમર પસંદ કરો (Select Age)</label>
-            <select id="age" required></select>
-        </div>
-        <div class="form-group">
-            <label><i class="fa-solid fa-graduation-cap"></i> શિક્ષણ (Education)</label>
-            <select id="education" required>
-                <option value="">-- પસંદ કરો --</option>
-                <option value="S.s.c">S.S.C</option>
-                <option value="H.s.c">H.S.C</option>
-                <option value="Graduate">Graduate</option>
-                <option value="Post Graduate">Post Graduate</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label><i class="fa-solid fa-smoking"></i> તંબાકુ/ધૂમ્રપાનની આદત (Tobacco Use)</label>
-            <select id="tobacco" required>
-                <option value="No">No (નથી)</option>
-                <option value="Yes">Yes (છે)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label><i class="fa-solid fa-wallet"></i> વાર્ષિક આવક (Annual Income)</label>
-            <select id="income" required>
-                <option value="">-- પસંદ કરો --</option>
-                <option value="2.5 Lakh">2.5 Lakh</option>
-                <option value="5 Lakh">5 Lakh</option>
-                <option value="7.5 Lakh">7.5 Lakh</option>
-                <option value="10 Lakh+">10 Lakh +</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label><i class="fa-solid fa-shield-halved"></i> પ્લાનનો પ્રકાર (Select Plan Option)</label>
-            <select id="plan" required>
-                <option value="pure50">Pure Term Plan (50 Lakh Cover - Till 85)</option>
-                <option value="pure1cr">Pure Term Plan (1 Crore Cover - Till 85)</option>
-                <option value="ulip60">ULIP Link Plan (60 Lakh Cover + 12% Expected Fund)</option>
-                <option value="ulip1cr">ULIP Link Plan (1 Crore Cover + 12% Expected Fund)</option>
-            </select>
-        </div>
-        <button type="submit" class="btn-calc">Calculate Premium</button>
+        <div class="form-group"><input type="text" id="name" required placeholder="પૂરું નામ"></div>
+        <div class="form-group"><input type="tel" id="mobile" required placeholder="મોબાઈલ નંબર"></div>
+        <div class="form-group"><select id="age"></select></div>
+        <div class="form-group"><select id="plan">
+            <option value="pure50">Pure Term (50 Lakh)</option>
+            <option value="pure1cr">Pure Term (1 Crore)</option>
+        </select></div>
+        <button type="submit">Calculate Premium</button>
     </form>
-
-    <div id="resultBox" class="result-box">
-        <div class="report-header">
-            <span class="report-badge">Live Report</span>
-            <h3 style="margin: 0; font-size: 22px; font-weight: 700;"><i class="fa-solid fa-file-invoice-dollar" style="color: #ffc107; margin-right: 6px;"></i> પોલિસી પ્રીમિયમ સમરી</h3>
-            <p style="margin: 4px 0 0 0; font-size: 13px; color: #cbd5e1;">A-KSHAY WEALTH • તમારા સુરક્ષિત ભવિષ્યનું આયોજન</p>
-        </div>
-
-        <div style="padding: 25px;">
-            <div class="premium-card">
-                <div style="font-size: 13px; text-transform: uppercase; color: #64748b; font-weight: 700; letter-spacing: 1px;">અંદાજિત રોકાણ</div>
-                <div id="premiumDisplay" class="premium-display"></div>
-                <div style="font-size: 13px; color: #64748b; font-weight: 500;">(પ્રીમિયમ મોડ: વાર્ષિક / Annual)</div>
-                <div id="fundDisplay" class="fund-display"></div>
-            </div>
-
-            <div class="benefits-box">
-                <h4><i class="fa-solid fa-star" style="color: #ffc107;"></i> પ્લાનના મુખ્ય ફાયદાઓ (Basic Benefits):</h4>
-                <ul id="benefitsList" class="benefits-list"></ul>
-            </div>
-
-            <div style="background: #fff5f5; border: 1px solid #feb2b2; border-radius: 12px; padding: 18px; margin-bottom: 25px;">
-                <h4 style="margin: 0 0 8px 0; color: #c53030; font-size: 15px; font-weight: 700;">
-                    <i class="fa-solid fa-triangle-exclamation"></i> મહત્વની સૂચના: જૂન મહિનાથી પ્રીમિયમ દરમાં ફેરફાર
-                </h4>
-                <p style="margin: 0 0 10px 0; font-size: 14px; color: #2d3748; line-height: 1.5;">
-                    વીમા કંપનીઓના નિયમ અને વાર્ષિક રિવ્યુ મુજબ <strong>જૂન મહિનાથી પ્રીમિયમ દરોમાં વધારો</strong> થવા જઈ રહ્યો છે.
-                </p>
-                <p style="margin: 0; font-size: 14px; color: #2d3748; line-height: 1.5;">
-                    🎯 <strong>મોટી બચતની છેલ્લી તક:</strong> જો જૂન મહિનામાં તમારી ઉંમર બદલાવાની હોય, તો આજે જ જૂના દરો મુજબ તમારો પ્લાન લોક કરીને તમે આખી પોલિસી દરમિયાન <strong>₹૩૦,૦૦૦ થી ₹૫૦,૦૦૦ સુધીની સીધી બચત</strong> કરી શકો છો. નવા ભાવ લાગુ થાય તે પહેલાં આજે જ નીચે ક્લિક કરી વિગતો કન્ફર્મ કરો.
-                </p>
-            </div>
-
-            <a id="finalBtn" href="#" target="_blank" class="btn-whatsapp">
-                <i class="fa-brands fa-whatsapp" style="font-size: 24px;"></i> આ પ્રીમિયમ અને બેનિફિટ્સ સાથે પોલિસી લેવા અક્ષયભાઈનો સંપર્ક કરો
-            </a>
-            
-            <div style="font-size: 12px; color: #94a3b8; text-align: center; margin-top: 15px;">
-                * આ એક અંદાજિત ગણતરી છે. ફાઇનલ પોલિસી કંપનીના નિયમો અને મેડિકલ રિપોર્ટ પર આધારિત રહેશે.
-            </div>
-        </div>
+    <div id="resultBox">
+        <h3>અંદાજિત પ્રીમિયમ: <span id="premiumDisplay"></span></h3>
+        <a id="finalBtn" href="#" style="display:block; text-align:center; background:green; color:white; padding:10px; text-decoration:none; border-radius:5px;">WhatsApp પર સંપર્ક કરો</a>
     </div>
 </div>
-
 <script>
+    // ઉંમર ભરવા માટે
     const ageSelect = document.getElementById('age');
-    for(let i=20; i<=60; i++) {
-        let opt = document.createElement('option');
-        opt.value = i; opt.innerHTML = i + ' વર્ષ';
-        if(i === 36) opt.selected = true;
-        ageSelect.appendChild(opt);
-    }
-
-    const premiumData = {
-        20: { pure50: 23063, pure1cr: 39817, ulip60: 41037, ulip60Fund: 16889018, ulip1cr: 69994, ulip1crFund: 28147700 },
-        25: { pure50: 23366, pure1cr: 38588, ulip60: 39338, ulip60Fund: 6048968, ulip1cr: 65581, ulip1crFund: 10081211 },
-        30: { pure50: 28908, pure1cr: 46609, ulip60: 48520, ulip60Fund: 8732789, ulip1cr: 80888, ulip1crFund: 14554515 },
-        35: { pure50: 37786, pure1cr: 62429, ulip60: 62443, ulip60Fund: 12727751, ulip1cr: 104072, ulip1crFund: 21267711 },
-        36: { pure50: 40647, pure1cr: 67092, ulip60: 66323, ulip60Fund: 13868072, ulip1cr: 110538, ulip1crFund: 23240466 },
-        40: { pure50: 52625, pure1cr: 85741, ulip60: 85546, ulip60Fund: 19477511, ulip1cr: 142575, ulip1crFund: 33117310 },
-        45: { pure50: 79440, pure1cr: 127969, ulip60: 114501, ulip60Fund: 27844699, ulip1cr: 190833, ulip1crFund: 47759293 },
-        50: { pure50: 129753, pure1cr: 195663, ulip60: 205053, ulip60Fund: 60251505, ulip1cr: 341754, ulip1crFund: 102109987 },
-        60: { pure50: 277267, pure1cr: 434970, ulip60: 540707, ulip60Fund: 181840322, ulip1cr: 901179, ulip1crFund: 304724153 }
-    };
-
-    function getPremiumRow(age) {
-        if (premiumData[age]) return premiumData[age];
-        let ages = Object.keys(premiumData).map(Number);
-        let closest = ages.reduce((prev, curr) => (Math.abs(curr - age) < Math.abs(prev - age) ? curr : prev));
-        return premiumData[closest];
-    }
+    for(let i=20; i<=60; i++) { ageSelect.innerHTML += `<option value="${i}">${i} વર્ષ</option>`; }
 
     function calculatePremium(event) {
         event.preventDefault();
-        
         const name = document.getElementById('name').value;
         const mobile = document.getElementById('mobile').value;
-        const age = document.getElementById('age').value;
-        const education = document.getElementById('education').value;
-        const tobacco = document.getElementById('tobacco').value;
-        const income = document.getElementById('income').value;
-        const planKey = document.getElementById('plan').value;
+        const premium = "₹25,000"; // આ એક ઉદાહરણ છે
         
-        const row = getPremiumRow(parseInt(age));
-        const premium = row[planKey];
-        
-        let premiumText = "₹" + premium.toLocaleString('en-IN');
-        let fundText = planKey.includes('ulip') ? "🎯 અંદાજિત મેચ્યોરિટી ભંડોળ (12% રિટર્ન મુજબ): ₹" + row[planKey + 'Fund'].toLocaleString('en-IN') : "💡 આ પ્યોર ટર્મ પ્લાન હોવાથી મેચ્યોરિટી પર કોઈ વળતર મળતું નથી (શુદ્ધ વીમો).";
-
-        document.getElementById('premiumDisplay').innerHTML = premiumText;
-        document.getElementById('fundDisplay').innerHTML = fundText;
-
-        const benefitsList = document.getElementById('benefitsList');
-        benefitsList.innerHTML = "";
-        
-        let ben1, ben2, ben3;
-        if(planKey.includes('pure')) {
-            ben1 = "🛡️ *મોટું લાઈફ કવરેજ:* પરિવાર માટે નક્કી કરેલ રકમનું શુદ્ધ આર્થિક સુરક્ષા કવચ (85 વર્ષ સુધી).";
-            ben2 = "🤝 *ગેરંટીડ આર્થિક મદદ:* મુશ્કેલ સમયમાં પરિવારને ક્લેમ સેટલમેન્ટ દ્વારા પૂરો સપોર્ટ.";
-            ben3 = "📉 *ટેક્સ બેનિફિટ:* આવકવેરાની કલમ 80C હેઠળ વાર્ષિક પ્રીમિયમ પર ટેક્સમાં મોટી બચત.";
-        } else {
-            ben1 = "💎 *ડબલ પ્રોટેક્શન:* એક જ પ્લાનમાં મોટું લાઈફ કવર (વીમો) + શેરબજાર આધારિત ફંડ ગ્રોથ.";
-            ben2 = "💰 *ટેક્સ ફ્રી મેચ્યોરિટી:* કલમ 10(10D) હેઠળ પાકતી મુદતે મળતું ભંડોળ એકદમ ટેક્સ-ફ્રી.";
-            ben3 = "📈 *લોન્ગ ટર્મ વેલ્થ:* માર્કેટ લિંક્ડ રોકાણ હોવાથી લાંબા ગાળે મોટું ફંડ ભેગું કરવાની શ્રેષ્ઠ તક.";
-        }
-
-        benefitsList.innerHTML += "<li>" + ben1.replace(/\*/g, '') + "</li>";
-        benefitsList.innerHTML += "<li>" + ben2.replace(/\*/g, '') + "</li>";
-        benefitsList.innerHTML += "<li>" + ben3.replace(/\*/g, '') + "</li>";
-
+        document.getElementById('premiumDisplay').innerText = premium;
         document.getElementById('resultBox').style.display = 'block';
 
-        // ગિટહબમાંથી ગુગલ શીટમાં કનેક્ટ કરવાનો રસ્તો
-        var googleScriptUrl = "https://script.google.com/macros/s/AKfycbw52pyHx-O7lcCRkirG1jVubAQB--j9FKvZET8d3DmKmzrVZ0qudwWCEXk2AXruSWbl/exec"; 
+        // અહીં તમારી Google Web App URL નાખો
+        const googleScriptUrl = "https://script.google.com/macros/s/AKfycbz-TBDeZ4usMbyWukKnVJZVt6bAaCDHh-ITgWOW0q-ioYqroybfmScF17hBLXctBgqM/exec"; 
         
-        var leadData = {
-            name: name, mobile: mobile, age: age, education: education,
-            tobacco: tobacco, income: income,
-            plan: document.getElementById('plan').options[document.getElementById('plan').selectedIndex].text,
-            premium: premiumText
-        };
-
         fetch(googleScriptUrl, {
             method: 'POST',
             mode: 'no-cors',
-            cache: 'no-cache',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(leadData)
-        }).then(function() {
-            console.log("Success! Data sent to Google Sheet via GitHub.");
-        }).catch(function(err) {
-            console.error("Error sending data:", err);
+            body: JSON.stringify({ name, mobile, premium, plan: document.getElementById('plan').value })
         });
-
-        let planLabel = document.getElementById('plan').options[document.getElementById('plan').selectedIndex].text;
-        let messageText = "નમસ્કાર અક્ષયભાઈ (A-KSHAY WEALTH),\n\n" +
-                          "હું આ પ્લાન અને તેના ફાયદાઓ જોઈને રસ ધરાવું છું. મારી વિગતો નીચે મુજબ છે:\n\n" +
-                          "👤 *નામ:* " + name + "\n" +
-                          "📞 *મોબાઈલ:* " + mobile + "\n" +
-                          "🎂 *ઉંમર:* " + age + " વર્ષ\n" +
-                          "🎓 *શિક્ષણ:* " + education + "\n" +
-                          "🚬 *તંબાકુની આદત:* " + tobacco + "\n" +
-                          "💰 *વાર્ષિક આવક:* " + income + "\n\n" +
-                          "📋 *પસંદ કરેલ પ્લાન:* " + planLabel + "\n" +
-                          "💵 *ગણેલું પ્રીમિયમ:* " + premiumText + "\n\n" +
-                          "✨ *મુખ્ય પ્લાન બેનિફિટ્સ:*\n" + ben1 + "\n" + ben2 + "\n" + ben3 + "\n\n" +
-                          "જૂન મહિનામાં કિંમતો વધે તે પહેલાં મારો પ્લાન લોક કરવા આગળની પ્રોસેસ સમજાવો.";
         
-        document.getElementById('finalBtn').href = "https://wa.me/917383666008?text=" + encodeURIComponent(messageText);
+        document.getElementById('finalBtn').href = "https://wa.me/917383666008?text=Hello, my name is " + name;
     }
 </script>
-
 </body>
 </html>
