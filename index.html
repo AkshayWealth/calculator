@@ -82,6 +82,10 @@
             border-color: var(--primary-color);
             box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.15);
         }
+        .other-education-box {
+            display: none;
+            margin-top: 10px;
+        }
         .btn-calc {
             width: 100%;
             background-color: var(--primary-color);
@@ -98,7 +102,6 @@
         .btn-calc:hover {
             background-color: #0b5ed7;
         }
-        /* Catchy Premium Digital Report Box */
         .result-box {
             display: none;
             margin-top: 35px;
@@ -127,38 +130,88 @@
             font-weight: 700;
             text-transform: uppercase;
         }
-        .premium-card {
+        
+        .quote-container {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-            padding: 22px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .quote-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 15px;
+        }
+        .quote-row:last-child {
+            border-bottom: none;
+        }
+        .quote-label {
+            font-weight: 600;
+            color: #64748b;
+        }
+        .quote-value {
+            font-weight: 700;
+            color: #1e293b;
+        }
+        .main-display-box {
             text-align: center;
-            margin-bottom: 25px;
+            background: #f0fdf4;
+            border: 1px dashed #bbf7d0;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 15px;
         }
         .premium-display {
-            font-size: 38px;
+            font-size: 34px;
             font-weight: 800;
             color: #16a34a;
             margin: 5px 0;
         }
-        .fund-display {
-            font-size: 16px;
-            color: #475569;
-            font-weight: 600;
-            background: #f0fdf4;
+        .half-premium-box {
+            background: #eff6ff;
+            border: 1px dashed #bfdbfe;
+            color: #1e40af;
+            font-weight: 700;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            font-size: 15px;
+        }
+        
+        .alert-note {
+            display: none;
+            background: #fef2f2;
+            color: #dc2626;
             padding: 12px;
             border-radius: 8px;
-            border: 1px dashed #bbf7d0;
-            margin-top: 15px;
+            border: 1px solid #fecaca;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 15px;
+            text-align: center;
         }
-        .appointment-section {
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #cbd5e1;
+        
+        .catchy-offer-box {
+            background: #fffbeb;
+            border: 1px dashed #fcd34d;
+            color: #b45309;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 12px;
+            animation: pulse 2s infinite;
         }
-        /* Catchy Green CTA Button */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
         .btn-whatsapp {
             display: flex;
             align-items: center;
@@ -169,12 +222,13 @@
             color: white;
             padding: 16px;
             border-radius: 8px;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             text-decoration: none;
             box-sizing: border-box;
             transition: all 0.3s;
             box-shadow: 0 4px 12px rgba(25, 135, 84, 0.2);
+            text-align: center;
         }
         .btn-whatsapp:hover {
             background-color: #146c43;
@@ -191,7 +245,6 @@
         <span class="badge-advisor"><i class="fa-solid fa-user-shield"></i> SEBI Registered Mutual Fund Distributor | 10+ Years Exp.</span>
     </div>
 
-    <!-- ગ્રાહકનું ફોર્મ -->
     <form id="termForm" onsubmit="calculatePremium(event)">
         <div class="form-group">
             <label><i class="fa-solid fa-user"></i> પૂરું નામ (Full Name)</label>
@@ -210,13 +263,23 @@
 
         <div class="form-group">
             <label><i class="fa-solid fa-graduation-cap"></i> શિક્ષણ (Education)</label>
-            <select id="education" required>
+            <select id="education" required onchange="filterPlans(); toggleOtherEducation();">
                 <option value="">-- પસંદ કરો --</option>
-                <option value="S.s.c">S.S.C</option>
-                <option value="H.s.c">H.S.C</option>
+                <option value="Below 10th">Below 10th</option>
+                <option value="10th">10th</option>
+                <option value="12th">12th</option>
+                <option value="Diploma">Diploma</option>
                 <option value="Graduate">Graduate</option>
                 <option value="Post Graduate">Post Graduate</option>
+                <option value="Engineer">Engineer</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Lawyer">Lawyer</option>
+                <option value="Chartered Accountant">Chartered Accountant</option>
+                <option value="Other">Other</option>
             </select>
+            <div id="otherEducationGroup" class="other-education-box">
+                <input type="text" id="otherEducation" placeholder="તમારું શિક્ષણ અહીં લખો">
+            </div>
         </div>
 
         <div class="form-group">
@@ -229,80 +292,103 @@
 
         <div class="form-group">
             <label><i class="fa-solid fa-wallet"></i> વાર્ષિક આવક (Annual Income)</label>
-            <select id="income" required>
+            <select id="income" required onchange="filterPlans();">
                 <option value="">-- પસંદ કરો --</option>
-                <option value="2.5 Lakh">2.5 Lakh</option>
-                <option value="5 Lakh">5 Lakh</option>
-                <option value="7.5 Lakh">7.5 Lakh</option>
-                <option value="10 Lakh+">10 Lakh +</option>
+                <option value="3 lakh thi ochhi">3 lakh thi ochhi</option>
+                <option value="3-5 lakh">3-5 lakh</option>
+                <option value="5-10 lakh">5-10 lakh</option>
+                <option value="10 thi vadhu">10 thi vadhu</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label><i class="fa-solid fa-file-invoice"></i> આવકનો પુરાવો (Income Proof)</label>
+            <select id="incomeProof" required>
+                <option value="">-- પસંદ કરો --</option>
+                <option value="Salary Slip">Salary Slip</option>
+                <option value="ITR">ITR</option>
+                <option value="Salary Bank Statement">Salary Bank Statement</option>
+                <option value="No Proof">No Proof (કોઈ પુરાવો નથી)</option>
             </select>
         </div>
 
         <div class="form-group">
             <label><i class="fa-solid fa-shield-halved"></i> પ્લાનનો પ્રકાર (Select Plan Option)</label>
-            <select id="plan" required>
-                <option value="pure50">Pure Term Plan (50 Lakh Cover - Till 85)</option>
-                <option value="pure1cr">Pure Term Plan (1 Crore Cover - Till 85)</option>
-                <option value="ulip60">ULIP Link Plan (60 Lakh Cover + 12% Expected Fund)</option>
-                <option value="ulip1cr">ULIP Link Plan (1 Crore Cover + 12% Expected Fund)</option>
-            </select>
+            <select id="plan" required></select>
         </div>
 
         <button type="submit" class="btn-calc">Calculate Premium</button>
     </form>
 
-    <!-- ન્યૂઝપેપર/ડિજિટલ રિપોર્ટ સ્ટાઈલ પ્રીમિયમ ડિસ્પ્લે -->
     <div id="resultBox" class="result-box">
         <div class="report-header">
-            <span class="report-badge">Live Report</span>
+            <span class="report-badge">Premium Quote</span>
             <h3 style="margin: 0; font-size: 22px; font-weight: 700;"><i class="fa-solid fa-file-invoice-dollar" style="color: #ffc107; margin-right: 6px;"></i> પોલિસી પ્રીમિયમ સમરી</h3>
             <p style="margin: 4px 0 0 0; font-size: 13px; color: #cbd5e1;">A-KSHAY WEALTH • તમારા સુરક્ષિત ભવિષ્યનું આયોજન</p>
         </div>
 
         <div style="padding: 25px;">
-            <div class="premium-card">
-                <div style="font-size: 13px; text-transform: uppercase; color: #64748b; font-weight: 700; letter-spacing: 1px;">અંદાજિત રોકાણ</div>
+            
+            <div class="main-display-box">
+                <div style="font-size: 14px; text-transform: uppercase; color: #475569; font-weight: 700; letter-spacing: 0.5px;">વાર્ષિક રોકાણ (Yearly Premium)</div>
                 <div id="premiumDisplay" class="premium-display"></div>
-                <div style="font-size: 13px; color: #64748b; font-weight: 500;">(પ્રીમિયમ મોડ: વાર્ષિક / Annual)</div>
-                <div id="fundDisplay" class="fund-display"></div>
+                <div id="halfPremiumBox" class="half-premium-box" style="display: none;"></div>
             </div>
 
-            <!-- સ્માર્ટ કેચી અપોઈન્ટમેન્ટ સેક્શન -->
-            <div class="appointment-section">
-                <h4 style="margin: 0 0 15px 0; color: var(--primary-color); font-size: 16px;"><i class="fa-solid fa-calendar-check"></i> ફ્રી એક્સપર્ટ કન્સલ્ટેશન અને એપોઇન્ટમેન્ટ</h4>
-                
-                <div class="form-group" style="margin-bottom: 12px;">
-                    <label style="font-size: 13px;">મુલાકાતનો પ્રકાર (Meeting Type)</label>
-                    <select id="meetType" style="padding: 10px;" onchange="updateCTA()">
-                        <option value="રૂબરૂ મુલાકાત (Face to Face)">ઓફિસ પર રૂબરૂ મુલાકાત (Face to Face)</option>
-                        <option value="ફોન પર ચર્ચા (On Call)">ફોન પર ચર્ચા (On Call)</option>
-                    </select>
-                </div>
+            <div id="maturityContainer" class="main-display-box" style="background: #f0fdf4; border: 1px dashed #bbf7d0; padding: 14px;">
+                <div id="maturityHeading" style="font-size: 13px; text-transform: uppercase; color: #475569; font-weight: 700; letter-spacing: 0.5px;">અંદાજિત મેચ્યોરિટી ભંડોળ</div>
+                <div id="maturityDisplay" class="premium-display"></div>
+            </div>
 
-                <div class="form-group" style="margin-bottom: 0;">
-                    <label style="font-size: 13px;">તમારો અનુકૂળ સમય (Preferred Time)</label>
-                    <select id="meetTime" style="padding: 10px;" onchange="updateCTA()">
-                        <option value="સવારે ૧૦:૦૦ થી ૧૨:૦૦ વચ્ચે">સવારે ૧૦:૦૦ થી ૧૨:૦૦ વચ્ચે</option>
-                        <option value="બપોરે ૦૨:૦૦ થી ૦૫:૦૦ વચ્ચે">બપોરે ૦૨:૦૦ થી ૦૫:૦૦ વચ્ચે</option>
-                        <option value="સાંજે ૦૫:૦0 થી ૦૮:૦૦ વચ્ચે">સાંજે ૦૫:૦0 થી ૦૮:૦૦ વચ્ચે</option>
-                    </select>
+            <div class="quote-container">
+                <div class="quote-row">
+                    <span class="quote-label">Policy Term (પોલિસી મુદત)</span>
+                    <span id="lblPolicyTerm" class="quote-value">-</span>
+                </div>
+                <div class="quote-row">
+                    <span class="quote-label">Payment Term (પ્રીમિયમ ભરવાના વર્ષ)</span>
+                    <span id="lblPayTerm" class="quote-value">-</span>
+                </div>
+                <div class="quote-row">
+                    <span class="quote-label">Basic Life Cover (જીવન વીમો)</span>
+                    <span id="lblBasicCover" class="quote-value">-</span>
+                </div>
+                <!-- પોઇન્ટ ૧: ULIP માટે વધારાના બે કવર્સ ના રોઝ -->
+                <div class="quote-row ulip-extra" style="display: none;">
+                    <span class="quote-label">Accident Insurance (અકસ્માત વીમો)</span>
+                    <span class="quote-value" style="color: #0d6efd;">₹5,400,000 (54 Lakh)</span>
+                </div>
+                <div class="quote-row ulip-extra" style="display: none;">
+                    <span class="quote-label">ATPD (અપંગતા વીમો)</span>
+                    <span class="quote-value" style="color: #0d6efd;">₹5,400,000 (54 Lakh)</span>
                 </div>
             </div>
 
-            <!-- નવું કેચી અને પાવરફુલ CTA બટન -->
+            <div id="smokerNotice" class="alert-note">
+                ⚠ Smoker માટે પ્રીમિયમ રેટ અલગ હોઈ શકે છે. ફાઇનલ રેટ માટે અક્ષયભાઈનો સંપર્ક કરો.
+            </div>
+
+            <div id="proofNotice" class="alert-note" style="background: #fff5f5; color: #e53e3e; border-color: #feb2b2;">
+                ⚠ ઇન્કમ પ્રૂફ વગર આ પ્લાન મળી શકશે નહીં. વધુ સમજવા માટે અક્ષયભાઈનો સંપર્ક કરો.
+            </div>
+
+            <div class="catchy-offer-box">
+                🎁 સીમિત સમયની ખાસ ઓફર: આજે જ લોન્ચિંગ ડિસ્કઉન્ટ અને ફ્રી વેલ્થ પ્લાનિંગ રિપોર્ટ મેળવવા માટે નીચે ક્લિક કરો!
+            </div>
+
             <a id="finalBtn" href="#" target="_blank" class="btn-whatsapp">
-                <i class="fa-brands fa-whatsapp" style="font-size: 22px;"></i> આ પ્રીમિયમ સાથે અક્ષયભાઈ સાથે એપોઇન્ટમેન્ટ કન્ફર્મ કરો
+                <i class="fa-brands fa-whatsapp" style="font-size: 22px;"></i> આ પ્લાનમાં મને રસ છે, વધુ સમજવું છે - અક્ષયભાઈ સાથે ચર્ચા કરો
             </a>
             
             <div style="font-size: 12px; color: #94a3b8; text-align: center; margin-top: 15px;">
-                * આ એક અંદાજિત ગણતરી છે. ફાઇનલ પોલિસી કંપનીના નિયમો અને મેડિકલ રિપોર્ટ પર આધારિત રહેશે.
+                * આ એક અંદાજિત ગણતરી છે. ફાઇનલ પોલિસી કંપનીના નિયમો, આવકના પુરાવા અને મેડિકલ રિપોર્ટ પર આધારિત રહેશે.
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    // ૨૦ થી ૬૦ વર્ષ સુધીની ઉંમર સેટ કરવી
+    // પોઇન્ટ ૨: ૩૬ વર્ષ બાય ડિફોલ્ટ સિલેક્ટ થશે પણ યુઝર ચેન્જ કરી શકશે
     const ageSelect = document.getElementById('age');
     for(let i=20; i<=60; i++) {
         let opt = document.createElement('option');
@@ -311,7 +397,59 @@
         ageSelect.appendChild(opt);
     }
 
-    // image_a0c022.jpg ઓરિજિનલ ડેટાબેઝ
+    const allPlans = [
+        { value: 'ulip60', text: 'ULIP + Term Plan (60 Lakh Cover)' },
+        { value: 'ulip1cr', text: 'ULIP + Term Plan (1 Crore Cover)' },
+        { value: 'pure50', text: 'Pure Term Plan (50 Lakh Cover - Till 85)' },
+        { value: 'pure1cr', text: 'Pure Term Plan (1 Crore Cover - Till 85)' }
+    ];
+
+    function filterPlans() {
+        const edu = document.getElementById('education').value;
+        const income = document.getElementById('income').value;
+        const planSelect = document.getElementById('plan');
+        
+        const nonGraduateList = ['Below 10th', '10th', '12th', 'Diploma'];
+        const isGraduateOrAbove = edu !== "" && !nonGraduateList.includes(edu) && edu !== 'Other';
+        const isIncome5LakhOrAbove = ['5-10 lakh', '10 thi vadhu'].includes(income);
+        
+        const currentSelected = planSelect.value;
+        planSelect.innerHTML = '';
+        
+        allPlans.forEach(p => {
+            if (p.value.startsWith('pure')) {
+                if (isGraduateOrAbove && isIncome5LakhOrAbove) {
+                    let opt = document.createElement('option');
+                    opt.value = p.value; opt.text = p.text;
+                    planSelect.appendChild(opt);
+                }
+            } else {
+                let opt = document.createElement('option');
+                opt.value = p.value; opt.text = p.text;
+                planSelect.appendChild(opt);
+            }
+        });
+        
+        if(currentSelected && planSelect.querySelector(`option[value="${currentSelected}"]`)){
+            planSelect.value = currentSelected;
+        }
+    }
+
+    function toggleOtherEducation() {
+        const edu = document.getElementById('education').value;
+        const otherBox = document.getElementById('otherEducationGroup');
+        const otherInput = document.getElementById('otherEducation');
+        if(edu === 'Other') {
+            otherBox.style.display = 'block';
+            otherInput.required = true;
+        } else {
+            otherBox.style.display = 'none';
+            otherInput.required = false;
+        }
+    }
+
+    filterPlans();
+
     const premiumData = {
         20: { pure50: 23063, pure1cr: 39817, ulip60: 41037, ulip60Fund: 16889018, ulip1cr: 69994, ulip1crFund: 28147700 },
         25: { pure50: 23366, pure1cr: 38588, ulip60: 39338, ulip60Fund: 6048968, ulip1cr: 65581, ulip1crFund: 10081211 },
@@ -335,18 +473,81 @@
         event.preventDefault();
         
         const age = parseInt(document.getElementById('age').value);
-        const plan = document.getElementById('plan').value;
-        const row = getPremiumRow(age);
-        const premium = row[plan];
+        let plan = document.getElementById('plan').value;
+        const edu = document.getElementById('education').value;
+        const income = document.getElementById('income').value;
+        const tobacco = document.getElementById('tobacco').value;
+        const proof = document.getElementById('incomeProof').value;
         
-        let premiumText = "₹" + premium.toLocaleString('en-IN');
-        let fundText = plan.includes('ulip') ? "🎯 અંદાજિત મેચ્યોરિટી ભંડોળ (12% રિટર્ન મુજબ): ₹" + row[plan + 'Fund'].toLocaleString('en-IN') : "💡 આ પ્યોર ટર્મ પ્લાન હોવાથી મેચ્યોરિટી પર કોઈ વળતર મળતું નથી (શુદ્ધ વીમો).";
-
+        const row = getPremiumRow(age);
+        const premiumYearly = row[plan];
+        
+        let premiumText = "₹" + premiumYearly.toLocaleString('en-IN');
         document.getElementById('premiumDisplay').innerHTML = premiumText;
-        document.getElementById('fundDisplay').innerHTML = fundText;
+        
+        const halfPremiumBox = document.getElementById('halfPremiumBox');
+        const maturityDisplay = document.getElementById('maturityDisplay');
+        const maturityHeading = document.getElementById('maturityHeading');
+        const extraUlipRows = document.querySelectorAll('.ulip-extra');
+        
+        let halfPremiumMsgPart = "";
+        let maturityMsgPart = ""; // વોટ્સએપ માટે મેચ્યોરિટી વેલ્યુ નો કન્સેપ્ટ
+        
+        if (plan.startsWith('pure')) {
+            // પ્યોર ટર્મ સેટિંગ્સ
+            extraUlipRows.forEach(row => row.style.display = 'none'); // રાઇડર્સ હાઇડ કરો
+            
+            const premiumHalfYearly = Math.round((premiumYearly / 2) * 1.02);
+            halfPremiumBox.innerHTML = "⏳ અર્ધ વાર્ષિક રોકાણ: ₹" + premiumHalfYearly.toLocaleString('en-IN');
+            halfPremiumBox.style.display = 'block';
+            halfPremiumMsgPart = "\n• અર્ધ વાર્ષિક રોકાણ: *₹" + premiumHalfYearly.toLocaleString('en-IN') + "*";
+            
+            document.getElementById('lblPolicyTerm').innerHTML = (85 - age) + " Years (Till Age 85)";
+            document.getElementById('lblPayTerm').innerHTML = (85 - age) + " Years (Regular Pay)";
+            document.getElementById('lblBasicCover').innerHTML = plan === 'pure50' ? "₹50,000,000 (50 Lakh)" : "₹10,000,000 (1 Crore)";
+            
+            maturityHeading.innerHTML = "અંદાજિત મેચ્યોરિટી ભંડોળ";
+            maturityDisplay.innerHTML = "₹0 (શુદ્ધ વીમો)";
+            maturityDisplay.style.fontSize = "18px";
+            maturityDisplay.style.color = "#475569";
+            maturityDisplay.style.fontWeight = "600";
+            
+            maturityMsgPart = "₹0 (Pure Term)";
+        } else {
+            // ULIP સેટિંગ્સ - પોઇન્ટ ૧ મુજબ એક્સ્ટ્રા કવર શો કરવા
+            extraUlipRows.forEach(row => row.style.display = 'flex');
+            halfPremiumBox.style.display = 'none';
+            
+            document.getElementById('lblPolicyTerm').innerHTML = "40 Years";
+            document.getElementById('lblPayTerm').innerHTML = "12 Years (Limited Pay)";
+            document.getElementById('lblBasicCover').innerHTML = plan === 'ulip60' ? "₹6,000,000 (60 Lakh)" : "₹10,000,000 (1 Crore)";
+            
+            let maturityVal = row[plan + 'Fund'];
+            maturityHeading.innerHTML = 'અંદાજિત મેચ્યોરિટી ભંડોળ <span style="color:#16a34a; font-size:12px;">(12% વળતર મુજબ)</span>';
+            maturityDisplay.innerHTML = "₹" + maturityVal.toLocaleString('en-IN');
+            maturityDisplay.style.fontSize = "28px";
+            maturityDisplay.style.color = "#16a34a";
+            maturityDisplay.style.fontWeight = "800";
+            
+            maturityMsgPart = "₹" + maturityVal.toLocaleString('en-IN') + " (Expected @12%)";
+        }
+        
+        if (tobacco === "Yes") {
+            document.getElementById('smokerNotice').style.display = 'block';
+        } else {
+            document.getElementById('smokerNotice').style.display = 'none';
+        }
+
+        if (proof === "No Proof") {
+            document.getElementById('proofNotice').style.display = 'block';
+        } else {
+            document.getElementById('proofNotice').style.display = 'none';
+        }
+        
         document.getElementById('resultBox').style.display = 'block';
 
-        // ગુગલ શીટમાં લાઈવ ડેટા સેવ કરવો
+        // ગૂગલ શીટ્સ બેકએન્ડ સબમિશન
+        let finalEduText = edu === 'Other' ? document.getElementById('otherEducation').value : edu;
         const webAppUrl = "https://script.google.com/macros/s/AKfycbyINLdz3RDYQTBgo0fZqG8_H8DtBWU_vBmF1RX66gCmb3GZLn7A4h58tsG8tesOUm49/exec"; 
         if(webAppUrl !== "YOUR_GOOGLE_SCRIPT_URL_HERE") {
             fetch(webAppUrl, {
@@ -355,30 +556,42 @@
                     name: document.getElementById('name').value,
                     mobile: document.getElementById('mobile').value,
                     age: age,
-                    education: document.getElementById('education').value,
-                    tobacco: document.getElementById('tobacco').value,
-                    income: document.getElementById('income').value,
+                    education: finalEduText,
+                    tobacco: tobacco,
+                    income: income,
+                    incomeProof: proof,
                     plan: document.getElementById('plan').options[document.getElementById('plan').selectedIndex].text,
                     premium: premiumText
                 })
             }).catch(err => console.log("Saved."));
         }
 
-        updateCTA();
-    }
-
-    // જ્યારે ગ્રાહક એપોઇન્ટમેન્ટનો સમય બદલે ત્યારે વોટ્સએપ લિંક ડાયનેમિક ચેન્જ થશે
-    function updateCTA() {
+        // પોઇન્ટ ૩: વોટ્સએપ મેસેજ મોડ્યુલ જેમાં 'Expected Maturity' એડ કરી છે
         const name = document.getElementById('name').value;
-        const age = document.getElementById('age').value;
+        const tobaccoStatus = tobacco === "Yes" ? "હા" : "ના";
         const planLabel = document.getElementById('plan').options[document.getElementById('plan').selectedIndex].text;
-        const premiumAmt = document.getElementById('premiumDisplay').innerText;
-        const meetType = document.getElementById('meetType').value;
-        const meetTime = document.getElementById('meetTime').value;
+        const pTerm = document.getElementById('lblPolicyTerm').innerHTML;
+        const payTerm = document.getElementById('lblPayTerm').innerHTML;
+        const bCover = document.getElementById('lblBasicCover').innerHTML;
+        
+        let extraRidersMsg = !plan.startsWith('pure') ? "• Accident Insurance: *₹54 Lakh*\n• ATPD (અપંગતા વીમો): *₹54 Lakh*\n" : "";
 
-        let messageText = "નમસ્કાર અક્ષયભાઈ (A-KSHAY WEALTH),\n\nમારું નામ *" + name + "* છે અને મારી ઉંમર *" + age + " વર્ષ* છે. મેં તમારા કેલ્ક્યુલેટર પર *" + planLabel + "* નું પ્રીમિયમ (" + premiumAmt + ") ચેક કર્યું છે.\n\nમારે આગળની વિગત અને આ પ્લાન ખરીદવા માટે તમારી સાથે *" + meetType + "* ગોઠવવી છે. મેં મુલાકાત માટે *" + meetTime + "* નો સમય પસંદ કર્યો છે. કૃપા કરીને આ અપોઈન્ટમેન્ટ કન્ફર્મ કરો.";
+        let messageText = "નમસ્કાર અક્ષયભાઈ (A-KSHAY WEALTH),\n" +
+                          "નામ *" + name + "*\n" +
+                          "ઉંમર: *" + age + " વર્ષ*\n" +
+                          "શિક્ષણ: *" + finalEduText + "*\n" +
+                          "આવક: *" + income + "*\n" +
+                          "તંબાકુ વપરાશ: *" + tobaccoStatus + "*\n" +
+                          "પ્લાન: *" + planLabel + "* • વાર્ષિક રોકાણ: *" + premiumText + "* • " + halfPremiumMsgPart + "\n" +
+                          "પોલિસી મુદત: *" + pTerm + "* • \n" +
+                          "પેમેન્ટ મુદત: *" + payTerm + "* • \n" +
+                          "જીવન વીમો (Cover): *" + bCover + "*\n" +
+                          extraRidersMsg +
+                          "અંદાજિત મેચ્યોરિટી: *" + maturityMsgPart + "*\n\n" +
+                          "*મને આ પ્લાનમાં રસ છે અને લોન્ચિંગ ઓફર સાથે વધુ વિગતો સમજવી છે.* કૃપા કરીને મારો સંપર્ક કરો.";
         
         document.getElementById('finalBtn').href = "https://wa.me/917383666008?text=" + encodeURIComponent(messageText);
+        document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
     }
 </script>
 
